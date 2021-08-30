@@ -1,0 +1,20 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      tracking-modes: COOKIE
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres?reconnect=true
+    username: postgres
+    password: postgres
+    transaction:
+      rollback-on-commit-failure: true
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
