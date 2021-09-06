@@ -6,3 +6,9 @@ spring:
   devtools:
     livereload:
       enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+    operations-sorter: alpha
+    tags-sorter: alpha

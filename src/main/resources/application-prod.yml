@@ -6,15 +6,25 @@ server:
 
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: ${prd-db-url}
-    username: ${prd-db-username}
-    password: ${prd-db-password}
-    transaction:
-      rollback-on-commit-failure: true
+    writer:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: ${prd-db-url}
+      username: ${prd-db-username}
+      password: ${prd-db-password}
+      connection-test-query: SELECT 1
+      maximum-pool-size: 8
+    readonly:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: ${prd-db-url}
+      username: ${prd-db-username}
+      password: ${prd-db-password}
+      connection-test-query: SELECT 2
+      maximum-pool-size: 8
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
-    generate-ddl: true
+    generate-ddl: false
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
