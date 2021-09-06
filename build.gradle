@@ -29,8 +29,21 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.20'
     developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
-    runtimeOnly 'org.postgresql:postgresql:42.2.23.jre7'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
+}
+
+def querydslSrcDir = 'src/main/generated'
+sourceSets {
+    main.java.srcDirs = ['src/main/java', querydslSrcDir]
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory(file(querydslSrcDir))
+}
+
+clean.doLast {
+    file(querydslSrcDir).delete()
 }
 
 test {
