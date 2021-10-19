@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.4'
+    id 'org.springframework.boot' version '2.5.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
@@ -19,18 +19,22 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.4'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.4'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
-    implementation 'org.springdoc:springdoc-openapi-ui:1.5.10'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.5.5'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.5.11'
     implementation 'com.querydsl:querydsl-jpa:5.0.0'
     implementation 'com.querydsl:querydsl-apt:5.0.0'
     implementation 'com.querydsl:querydsl-core:5.0.0'
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.4'
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.5'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
 }
 
 def querydslSrcDir = 'src/main/generated'

@@ -2,7 +2,7 @@ package me.cienowl.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import me.cienowl.context.DataSourceWriterReadOnlyRouting;
+import me.cienowl.context.DataSourceMasterSlaveRouting;
 import me.cienowl.context.DatabaseEnvironment;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,34 +16,34 @@ import java.util.Map;
 public class DataSourceConfiguration {
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.writer")
-    public HikariConfig hikariConfigWriter() {
+    @ConfigurationProperties(prefix = "spring.datasource.master")
+    public HikariConfig masterHikariConfig() {
         return new HikariConfig();
     }
 
-    public DataSource writerDataSource() {
-        return new HikariDataSource(hikariConfigWriter());
+    public DataSource masterDataSource() {
+        return new HikariDataSource(masterHikariConfig());
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.readonly")
-    public HikariConfig hikariConfigReadOnly() {
+    @ConfigurationProperties(prefix = "spring.datasource.slave")
+    public HikariConfig slaveHikariConfig() {
         return new HikariConfig();
     }
 
-    public DataSource readOnlyDataSource() {
-        return new HikariDataSource(hikariConfigReadOnly());
+    public DataSource slaveDataSource() {
+        return new HikariDataSource(slaveHikariConfig());
     }
 
     @Bean
     public DataSource dataSource() {
-        DataSourceWriterReadOnlyRouting dataSourceWriterReadOnlyRouting = new DataSourceWriterReadOnlyRouting();
+        DataSourceMasterSlaveRouting dataSourceMasterSlaveRouting = new DataSourceMasterSlaveRouting();
         Map<Object, Object> targetDataSource = new HashMap<>();
-        targetDataSource.put(DatabaseEnvironment.WRITER, writerDataSource());
-        targetDataSource.put(DatabaseEnvironment.READONLY, readOnlyDataSource());
-        dataSourceWriterReadOnlyRouting.setTargetDataSources(targetDataSource);
+        targetDataSource.put(DatabaseEnvironment.WRITER, masterDataSource());
+        targetDataSource.put(DatabaseEnvironment.READONLY, slaveDataSource());
+        dataSourceMasterSlaveRouting.setTargetDataSources(targetDataSource);
 
-        dataSourceWriterReadOnlyRouting.setDefaultTargetDataSource(writerDataSource());
-        return dataSourceWriterReadOnlyRouting;
+        dataSourceMasterSlaveRouting.setDefaultTargetDataSource(masterDataSource());
+        return dataSourceMasterSlaveRouting;
     }
 }
