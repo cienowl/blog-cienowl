@@ -8,16 +8,16 @@ spring:
   datasource:
     master:
       driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: ${prd-db-url}
-      username: ${prd-db-username}
-      password: ${prd-db-password}
+      jdbc-url: ${prd-master-url}
+      username: ${prd-master-username}
+      password: ${prd-master-password}
       connection-test-query: SELECT 1
       maximum-pool-size: 8
     slave:
       driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: ${prd-db-url}
-      username: ${prd-db-username}
-      password: ${prd-db-password}
+      jdbc-url: ${prd-slave-url}
+      username: ${prd-slave-username}
+      password: ${prd-slave-password}
       connection-test-query: SELECT 2
       maximum-pool-size: 8
   jpa:
