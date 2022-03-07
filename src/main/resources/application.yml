@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod
+    active: local
   mvc:
     static-path-pattern: /static/**
   devtools:
